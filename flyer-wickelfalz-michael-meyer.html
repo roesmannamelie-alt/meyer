@@ -3,55 +3,44 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Wickelfalz-Flyer | Malerbetrieb Michael Meyer</title>
+  <title>Flyer-Vorschau | Malerbetrieb Michael Meyer</title>
   <style>
     :root {
-      --paper: #f7f1e8;
-      --panel: #fffdf9;
-      --ink: #1d1d1b;
-      --muted: #5d5a56;
-      --accent: #b4572d;
-      --accent-dark: #7e3416;
-      --line: #d8c9b4;
-      --sand: #eadcc7;
-      --shadow: 0 18px 50px rgba(40, 28, 18, 0.14);
-      --radius: 24px;
-      --max-width: 1440px;
-      --panel-pad: 28px;
+      --bg: #efe6d8;
+      --paper: #fcfaf6;
+      --line: #d8c8b2;
+      --ink: #1f1b17;
+      --muted: #635b52;
+      --accent: #a54f2a;
+      --accent-dark: #73341b;
+      --sand: #eadbc6;
+      --shadow: 0 28px 70px rgba(60, 41, 24, 0.16);
+      --radius: 18px;
       color-scheme: light;
-      font-family: "Bahnschrift", "Aptos", "Segoe UI", sans-serif;
+      font-family: "Aptos", "Segoe UI", sans-serif;
     }
 
     * {
       box-sizing: border-box;
     }
 
+    @page {
+      size: A4 landscape;
+      margin: 0;
+    }
+
+    html,
     body {
       margin: 0;
+      padding: 0;
       background:
-        radial-gradient(circle at top left, rgba(180, 87, 45, 0.14), transparent 28%),
-        linear-gradient(180deg, #f8efe3 0%, #f4ebdf 100%);
+        radial-gradient(circle at top left, rgba(165, 79, 42, 0.14), transparent 30%),
+        linear-gradient(180deg, #f5eee5 0%, #ece2d3 100%);
       color: var(--ink);
     }
 
-    .page {
-      max-width: var(--max-width);
-      margin: 0 auto;
-      padding: 40px 24px 72px;
-    }
-
-    .hero {
-      display: grid;
-      gap: 12px;
-      margin-bottom: 28px;
-    }
-
-    .eyebrow {
-      font-size: 0.82rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent-dark);
-      font-weight: 700;
+    body {
+      padding: 28px;
     }
 
     h1,
@@ -61,318 +50,429 @@
       margin: 0;
     }
 
+    .wrap {
+      max-width: 1440px;
+      margin: 0 auto;
+      display: grid;
+      gap: 20px;
+    }
+
+    .header {
+      display: grid;
+      gap: 10px;
+      max-width: 76ch;
+    }
+
+    .eyebrow {
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent-dark);
+    }
+
     h1 {
       font-family: "Rockwell", "Georgia", serif;
-      font-size: clamp(2rem, 4vw, 3.65rem);
-      line-height: 0.98;
+      font-size: clamp(2rem, 4vw, 3.4rem);
+      line-height: 1.02;
       max-width: 12ch;
     }
 
-    .intro {
-      max-width: 75ch;
+    .header p {
       color: var(--muted);
-      font-size: 1.02rem;
-      line-height: 1.6;
+      font-size: 1rem;
+      line-height: 1.55;
     }
 
-    .print-note {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
+    .print-hint {
+      display: inline-block;
       width: fit-content;
-      margin-top: 6px;
       padding: 10px 14px;
       border-radius: 999px;
-      background: rgba(126, 52, 22, 0.08);
+      background: rgba(115, 52, 27, 0.08);
       color: var(--accent-dark);
-      font-size: 0.94rem;
+      font-size: 0.92rem;
       font-weight: 700;
     }
 
+    .sheet {
+      position: relative;
+      width: min(100%, 1320px);
+      aspect-ratio: 297 / 210;
+      background: var(--paper);
+      border: 1px solid rgba(115, 52, 27, 0.16);
+      border-radius: 24px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+
+    .sheet + .sheet {
+      margin-top: 10px;
+    }
+
+    .sheet-meta {
+      position: absolute;
+      top: 16px;
+      left: 18px;
+      z-index: 4;
+      padding: 7px 10px;
+      border-radius: 999px;
+      background: rgba(252, 250, 246, 0.92);
+      border: 1px solid rgba(115, 52, 27, 0.16);
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent-dark);
+    }
+
     .spread {
-      margin-top: 30px;
+      position: absolute;
+      inset: 0;
       display: grid;
-      gap: 14px;
-      align-items: stretch;
+      padding: 22px;
+      gap: 0;
     }
 
     .spread.outer {
-      grid-template-columns: 1fr 1fr 0.88fr;
+      grid-template-columns: 100fr 100fr 97fr;
     }
 
     .spread.inner {
-      grid-template-columns: 0.88fr 1fr 1fr;
+      grid-template-columns: 97fr 100fr 100fr;
     }
 
     .panel {
       position: relative;
-      min-height: 530px;
       display: grid;
-      gap: 18px;
       align-content: start;
-      padding: var(--panel-pad);
-      border: 1px solid rgba(126, 52, 22, 0.12);
-      border-radius: var(--radius);
-      background: var(--panel);
-      box-shadow: var(--shadow);
-      overflow: hidden;
+      gap: 14px;
+      padding: 34px 22px 22px;
+      border-right: 1px dashed rgba(115, 52, 27, 0.2);
+    }
+
+    .panel:last-child {
+      border-right: 0;
     }
 
     .panel::after {
       content: "";
       position: absolute;
-      inset: auto 0 0 0;
-      height: 8px;
+      left: 22px;
+      right: 22px;
+      bottom: 0;
+      height: 7px;
+      border-radius: 999px 999px 0 0;
       background: linear-gradient(90deg, var(--accent-dark), var(--accent));
       opacity: 0.95;
     }
 
-    .panel-kicker {
+    .panel-id {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      gap: 12px;
-      font-size: 0.85rem;
+      gap: 10px;
+      font-size: 0.8rem;
+      font-weight: 800;
       text-transform: uppercase;
       letter-spacing: 0.12em;
       color: var(--muted);
-      font-weight: 700;
     }
 
-    .panel-number {
+    .panel-id strong {
       color: var(--accent);
     }
 
     .panel h2 {
       font-family: "Rockwell", "Georgia", serif;
-      font-size: clamp(1.5rem, 2vw, 2.2rem);
-      line-height: 1.1;
+      font-size: clamp(1.3rem, 2vw, 2.2rem);
+      line-height: 1.08;
     }
 
     .panel h3 {
-      font-size: 1rem;
-      line-height: 1.25;
+      font-size: 0.94rem;
+      font-weight: 800;
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.08em;
       color: var(--accent-dark);
     }
 
     .panel p,
     .panel li {
       color: var(--muted);
-      font-size: 0.98rem;
-      line-height: 1.55;
+      font-size: 0.92rem;
+      line-height: 1.48;
     }
 
-    .panel ul {
-      margin: 0;
-      padding-left: 20px;
-      display: grid;
+    .lede {
+      color: var(--ink);
+      font-size: 1.04rem;
+      font-weight: 700;
+      line-height: 1.35;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
       gap: 10px;
+      width: fit-content;
+      padding: 9px 12px;
+      border-radius: 999px;
+      background: rgba(165, 79, 42, 0.08);
+      color: var(--accent-dark);
+      font-weight: 800;
+      letter-spacing: 0.04em;
     }
 
-    .photo-block {
-      min-height: 180px;
-      padding: 20px;
-      border-radius: 20px;
+    .brand-mark {
+      width: 14px;
+      height: 14px;
+      border-radius: 3px;
+      background: linear-gradient(180deg, var(--accent), var(--accent-dark));
+    }
+
+    .photo {
+      min-height: 122px;
+      padding: 18px;
+      border-radius: var(--radius);
       background:
-        linear-gradient(135deg, rgba(15, 15, 15, 0.78), rgba(15, 15, 15, 0.2)),
-        linear-gradient(45deg, #6e6c66, #b4a38d);
-      color: #fff8ef;
+        linear-gradient(145deg, rgba(10, 10, 10, 0.68), rgba(10, 10, 10, 0.2)),
+        linear-gradient(120deg, #9e8f7c 0%, #6f665d 32%, #d4c0a2 100%);
+      color: #fffaf3;
       display: grid;
       align-content: end;
+      gap: 6px;
+    }
+
+    .badges,
+    .facts,
+    .services {
+      display: grid;
       gap: 10px;
     }
 
-    .trust-badges,
-    .mini-grid,
-    .service-grid,
-    .contact-list {
-      display: grid;
-      gap: 12px;
-    }
-
-    .trust-badges {
+    .badges {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
-    .badge,
-    .mini-card,
-    .service-card,
-    .cta-box {
-      padding: 14px 16px;
-      border-radius: 18px;
-      background: linear-gradient(180deg, #fff9f3 0%, #f3e6d4 100%);
-      border: 1px solid rgba(126, 52, 22, 0.12);
+    .card,
+    .contact-box,
+    .cta {
+      padding: 12px 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(115, 52, 27, 0.12);
+      background: linear-gradient(180deg, #fffaf4 0%, #f2e4d2 100%);
     }
 
-    .badge strong,
-    .mini-card strong,
-    .service-card strong,
-    .contact-list strong {
+    .card strong,
+    .contact-box strong,
+    .cta strong {
       display: block;
-      color: var(--ink);
-      font-size: 0.98rem;
       margin-bottom: 4px;
-    }
-
-    .mini-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .service-grid {
-      grid-template-columns: 1fr;
-    }
-
-    .tagline {
-      font-size: 1.08rem;
       color: var(--ink);
-      font-weight: 700;
+      font-size: 0.93rem;
+    }
+
+    .fact-list,
+    .service-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 9px;
+    }
+
+    .fact-list li,
+    .service-list li {
+      position: relative;
+      padding-left: 16px;
+    }
+
+    .fact-list li::before,
+    .service-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.55em;
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: var(--accent);
     }
 
     .contact-line {
-      font-size: 1.35rem;
-      line-height: 1.15;
-      color: var(--ink);
+      font-size: 1.26rem;
+      line-height: 1.12;
       font-weight: 800;
+      color: var(--ink);
     }
 
-    .cta-box {
-      display: grid;
-      gap: 8px;
-      background: linear-gradient(180deg, #b4572d 0%, #8f3b1d 100%);
-      color: #fff8ef;
+    .cta {
+      background: linear-gradient(180deg, #a54f2a 0%, #873c1d 100%);
+      color: #fffaf4;
     }
 
-    .cta-box p,
-    .cta-box strong {
+    .cta strong,
+    .cta p {
       color: inherit;
     }
 
-    .split-note {
-      padding: 16px 18px;
-      border-radius: 18px;
-      background: var(--sand);
-      color: var(--ink);
-      font-weight: 700;
-      line-height: 1.45;
+    .micro {
+      font-size: 0.84rem;
     }
 
-    .footer-note {
-      margin-top: 22px;
+    .footer {
       color: var(--muted);
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       line-height: 1.5;
+      max-width: 70ch;
     }
 
     @media (max-width: 1100px) {
+      body {
+        padding: 18px;
+      }
+
+      .sheet {
+        aspect-ratio: auto;
+        height: auto;
+      }
+
+      .spread,
       .spread.outer,
-      .spread.inner,
-      .trust-badges,
-      .mini-grid {
+      .spread.inner {
+        position: relative;
+        inset: auto;
         grid-template-columns: 1fr;
       }
 
       .panel {
-        min-height: auto;
+        border-right: 0;
+        border-bottom: 1px dashed rgba(115, 52, 27, 0.2);
+        min-height: 0;
+      }
+
+      .panel:last-child {
+        border-bottom: 0;
+      }
+
+      .badges {
+        grid-template-columns: 1fr;
       }
     }
 
     @media print {
       body {
+        padding: 0;
         background: #ffffff;
       }
 
-      .page {
-        max-width: none;
-        padding: 0;
+      .header,
+      .footer {
+        display: none;
       }
 
-      .panel {
+      .wrap {
+        gap: 0;
+      }
+
+      .sheet {
+        width: 297mm;
+        height: 210mm;
+        border: 0;
+        border-radius: 0;
         box-shadow: none;
-        break-inside: avoid;
+        page-break-after: always;
+      }
+
+      .sheet:last-child {
+        page-break-after: auto;
       }
     }
   </style>
 </head>
 <body>
-  <main class="page">
-    <section class="hero">
-      <span class="eyebrow">Flyer-Konzept | Wickelfalz | 6 Seiten</span>
-      <h1>Malerbetrieb Michael Meyer als geordneter 6-Seiter im Wickelfalz.</h1>
-      <p class="intro">
-        Diese Vorlage verdichtet die Website bewusst auf Vertrauen vorne, zwei Leistungswelten innen und eine klare
-        Kontaktseite hinten. Die Wickelfalz-Logik ist in der Reihenfolge der Panels bereits berücksichtigt.
+  <main class="wrap">
+    <section class="header">
+      <span class="eyebrow">Malerbetrieb Michael Meyer | Wickelfalz-Vorschau</span>
+      <h1>Anschaubare Druckvorschau als 6-Seiter im Wickelfalz.</h1>
+      <p>
+        Die Außen- und Innenseite sind hier als zwei eigene Bögen aufgebaut. Inhaltlich bleibt der Flyer bewusst
+        verdichtet: vorne Vertrauen, innen Leistungen für Privat und Gewerbe, hinten Kontakt und Angebotsversprechen.
       </p>
-      <div class="print-note">Druckhinweis: Die Einklapp-Lasche ist schmaler. Maße bitte mit der Druckerei abstimmen.</div>
+      <div class="print-hint">Annahme: A4 quer mit Wickelfalz. Die eingeklappte Lasche ist leicht schmaler angelegt.</div>
     </section>
 
-    <section>
-      <div class="panel-kicker">
-        <span>Außenseite in Druckreihenfolge</span>
-        <span>Links nach rechts</span>
-      </div>
+    <section class="sheet">
+      <div class="sheet-meta">Außenseite | Druckreihenfolge von links nach rechts</div>
       <div class="spread outer">
         <article class="panel">
-          <div class="panel-kicker">
-            <span class="panel-number">1</span>
+          <div class="panel-id">
+            <strong>1</strong>
             <span>Rückseite</span>
           </div>
-          <h2>Jetzt unverbindlich anfragen</h2>
-          <p class="tagline">Kostenlose Beratung vor Ort. Angebot in der Regel innerhalb von 2 bis 3 Werktagen.</p>
-          <div class="contact-list">
-            <div class="mini-card">
-              <strong>Malerbetrieb Michael Meyer</strong>
-              <p>Telemannstr. 4, 48147 Münster</p>
-            </div>
-            <div class="mini-card">
-              <strong>Kontakt</strong>
-              <p class="contact-line">0172 2888117</p>
-              <p>info@malerbetrieb-michael-meyer.de</p>
-              <p>malerbetrieb-michael-meyer.de</p>
-            </div>
+          <div class="brand">
+            <span class="brand-mark"></span>
+            <span>Malerbetrieb Michael Meyer</span>
           </div>
-          <div class="cta-box">
+          <h2>Jetzt unverbindlich anfragen</h2>
+          <p class="lede">Kostenlose Beratung vor Ort. Angebot in der Regel innerhalb von 2 bis 3 Werktagen.</p>
+          <div class="contact-box">
+            <strong>Adresse</strong>
+            <p>Telemannstr. 4</p>
+            <p>48147 Münster</p>
+          </div>
+          <div class="contact-box">
+            <strong>Direkter Kontakt</strong>
+            <p class="contact-line">0172 2888117</p>
+            <p>info@malerbetrieb-michael-meyer.de</p>
+            <p>malerbetrieb-michael-meyer.de</p>
+          </div>
+          <div class="cta">
             <strong>Für Münster und Umgebung</strong>
-            <p>Ein Anruf genügt und wir stimmen den Vor-Ort-Termin direkt mit Ihnen ab.</p>
+            <p>Kurzer Anruf, schnelle Einschätzung, klarer nächster Schritt.</p>
           </div>
         </article>
 
         <article class="panel">
-          <div class="panel-kicker">
-            <span class="panel-number">2</span>
+          <div class="panel-id">
+            <strong>2</strong>
             <span>Titelseite</span>
           </div>
-          <div class="photo-block">
-            <strong>Platz für ein authentisches Arbeits- oder Fassadenfoto</strong>
-            <p>Groß, ruhig, handwerklich. Das Bild soll Sauberkeit und Verlässlichkeit transportieren.</p>
+          <div class="photo">
+            <strong>Titelfoto</strong>
+            <p>Authentisches Baustellen- oder Arbeitsmotiv mit Ruhe, Sauberkeit und Handwerk.</p>
+          </div>
+          <div class="brand">
+            <span class="brand-mark"></span>
+            <span>Meisterbetrieb in Münster</span>
           </div>
           <h2>Saubere Malerarbeiten in Münster.</h2>
-          <p class="tagline">Meisterbetrieb für Innenräume, Fassaden, Schimmel- und Wasserschaden-Sanierung.</p>
+          <p class="lede">Meisterbetrieb für Innenräume, Fassaden, Schimmel- und Wasserschaden-Sanierung.</p>
           <p>Über 30 Jahre Erfahrung, über 500 Projekte, zuverlässig umgesetzt.</p>
-          <div class="trust-badges">
-            <div class="badge">
+          <div class="badges">
+            <div class="card">
               <strong>Sauber</strong>
               <p>Ordentlich abgedeckt und sauber übergeben.</p>
             </div>
-            <div class="badge">
+            <div class="card">
               <strong>Termintreu</strong>
-              <p>Klare Absprachen und verlässliche Ausführung.</p>
+              <p>Verlässliche Absprachen und klare Abläufe.</p>
             </div>
-            <div class="badge">
+            <div class="card">
               <strong>Zuverlässig</strong>
-              <p>Ehrliche Beratung mit festen Ansprechpartnern.</p>
+              <p>Ehrliche Beratung statt leere Versprechen.</p>
             </div>
           </div>
         </article>
 
         <article class="panel">
-          <div class="panel-kicker">
-            <span class="panel-number">3</span>
+          <div class="panel-id">
+            <strong>3</strong>
             <span>Einklapp-Lasche</span>
           </div>
           <h2>Unsere Leistungen auf einen Blick</h2>
-          <ul>
+          <ul class="service-list">
             <li>Malerarbeiten</li>
             <li>Fassadenanstrich</li>
             <li>Wasserschaden-Sanierung</li>
@@ -381,62 +481,63 @@
             <li>Treppenhaus-Anstriche</li>
             <li>Renovierung im laufenden Betrieb</li>
           </ul>
-          <div class="split-note">
-            Kostenlose Beratung vor Ort. Angebot meist in 2 bis 3 Werktagen.
+          <div class="card">
+            <strong>Zusatzversprechen</strong>
+            <p>Kostenlose Beratung vor Ort. Angebot meist in 2 bis 3 Werktagen.</p>
           </div>
+          <p class="micro">Diese Lasche ist bewusst schmaler gesetzt, passend zur Wickelfalz-Logik.</p>
         </article>
       </div>
     </section>
 
-    <section>
-      <div class="panel-kicker" style="margin-top: 28px;">
-        <span>Innenseite in Leserichtung</span>
-        <span>Links nach rechts</span>
-      </div>
+    <section class="sheet">
+      <div class="sheet-meta">Innenseite | Leserichtung von links nach rechts</div>
       <div class="spread inner">
         <article class="panel">
-          <div class="panel-kicker">
-            <span class="panel-number">4</span>
+          <div class="panel-id">
+            <strong>4</strong>
             <span>Wer wir sind</span>
           </div>
           <h2>Malerbetrieb Michael Meyer, zuverlässig für Münster und Umgebung</h2>
-          <p>
-            Ob Wohnung, Haus, Praxis, Büro oder Treppenhaus: Wir arbeiten sauber, ordentlich abgedeckt und mit
-            hochwertigen Materialien. Als Meisterbetrieb mit über 30 Jahren Erfahrung begleiten wir Projekte vom ersten
-            Vor-Ort-Termin bis zur sauberen Übergabe.
+          <p class="lede">
+            Ob Wohnung, Haus, Praxis, Büro oder Treppenhaus: Wir arbeiten sauber, ordentlich abgedeckt und mit hochwertigen Materialien.
           </p>
-          <div class="mini-grid">
-            <div class="mini-card">
+          <p>
+            Als Meisterbetrieb mit über 30 Jahren Erfahrung begleiten wir Projekte vom ersten Vor-Ort-Termin bis zur
+            sauberen Übergabe.
+          </p>
+          <div class="facts">
+            <div class="card">
               <strong>Kostenlose Vor-Ort-Beratung</strong>
               <p>Schnelle Einschätzung direkt am Objekt.</p>
             </div>
-            <div class="mini-card">
+            <div class="card">
               <strong>Transparente Angebote</strong>
-              <p>Klare Leistungen ohne unnötige Umwege.</p>
+              <p>Klare Leistungen, klarer Ablauf, klare Kosten.</p>
             </div>
-            <div class="mini-card">
+            <div class="card">
               <strong>Endreinigung inklusive</strong>
-              <p>Saubere Übergabe statt Nacharbeit für Kunden.</p>
+              <p>Saubere Übergabe statt zusätzlicher Nacharbeit.</p>
             </div>
           </div>
         </article>
 
         <article class="panel">
-          <div class="panel-kicker">
-            <span class="panel-number">5</span>
+          <div class="panel-id">
+            <strong>5</strong>
             <span>Privatkunden</span>
           </div>
           <h2>Für Privatkunden</h2>
-          <div class="service-grid">
-            <div class="service-card">
+          <div class="services">
+            <div class="card">
               <strong>Malerarbeiten innen</strong>
               <p>Wohnräume, Decken, einzelne Wände oder komplette Wohnungen. Mit sauberen Kanten, geruchsarmen Farben und sorgfältiger Vorbereitung.</p>
             </div>
-            <div class="service-card">
+            <div class="card">
               <strong>Fassadenanstrich</strong>
               <p>Für Ein- und Mehrfamilienhäuser, inklusive Untergrundprüfung, Putzausbesserung und auf Wunsch Gerüstkoordination.</p>
             </div>
-            <div class="service-card">
+            <div class="card">
               <strong>Schimmel und Wasserschaden</strong>
               <p>Schnelle Hilfe bei Feuchtigkeitsschäden, inklusive Trocknung, Wiederherstellung und Dokumentation für die Versicherung. Bei Schimmel wird die Ursache mitgedacht, nicht nur überstrichen.</p>
             </div>
@@ -444,21 +545,21 @@
         </article>
 
         <article class="panel">
-          <div class="panel-kicker">
-            <span class="panel-number">6</span>
-            <span>Gewerbe & Verwaltung</span>
+          <div class="panel-id">
+            <strong>6</strong>
+            <span>Gewerbe & Hausverwaltungen</span>
           </div>
           <h2>Für Gewerbe, Praxen und Hausverwaltungen</h2>
-          <div class="service-grid">
-            <div class="service-card">
+          <div class="services">
+            <div class="card">
               <strong>Malerarbeiten für Büros, Praxen, Läden und Gastronomie</strong>
               <p>Mit Staubschutz, festen Ansprechpartnern und auf Wunsch abends oder am Wochenende.</p>
             </div>
-            <div class="service-card">
+            <div class="card">
               <strong>Treppenhaus-Anstriche</strong>
               <p>Etagenweise Ausführung, Putzausbesserung und Dokumentation für Eigentümer oder Verwaltung.</p>
             </div>
-            <div class="service-card">
+            <div class="card">
               <strong>Renovierung im laufenden Betrieb</strong>
               <p>Mit Etappenplan, Staubschutzwänden und Koordination durch einen festen Projektleiter.</p>
             </div>
@@ -467,9 +568,9 @@
       </div>
     </section>
 
-    <p class="footer-note">
-      Visuelle Richtung: robust, sauber, wenige deutliche Icons, starke Headline, wenig Fließtext, Telefonnummer auf Titel
-      und Rückseite gut sichtbar.
+    <p class="footer">
+      Nächster sinnvoller Schritt wäre eine finale Satzdatei mit echtem Logo, Originalfoto, finalen Druckmaßen der
+      Druckerei und einer PDF/X-Ausgabe. Diese Vorschau ist dafür bereits inhaltlich und strukturell vorbereitet.
     </p>
   </main>
 </body>
