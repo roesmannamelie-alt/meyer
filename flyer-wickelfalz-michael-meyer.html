@@ -331,14 +331,14 @@
     }
 
     .trust-icon {
-      width: 30px;
-      height: 30px;
-      border-radius: 999px;
-      border: 2px solid rgba(247, 247, 245, 0.88);
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      border: 1.5px solid rgba(247, 247, 245, 0.26);
       display: grid;
       place-items: center;
-      font-size: 0.95rem;
       color: var(--white);
+      background: rgba(255, 255, 255, 0.04);
     }
 
     .pill {
@@ -403,14 +403,25 @@
     }
 
     .icon {
-      width: 34px;
-      height: 34px;
-      border-radius: 12px;
-      border: 2px solid #111111;
+      width: 42px;
+      height: 42px;
+      border-radius: 14px;
+      border: 1.5px solid rgba(6, 6, 6, 0.12);
       display: grid;
       place-items: center;
-      font-size: 0.88rem;
-      font-weight: 800;
+      color: #111111;
+      background: rgba(255, 255, 255, 0.62);
+    }
+
+    .trust-icon svg,
+    .icon svg {
+      width: 22px;
+      height: 22px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.9;
+      stroke-linecap: round;
+      stroke-linejoin: round;
     }
 
     .stack {
@@ -463,16 +474,13 @@
       align-items: end;
     }
 
-    .qr {
+    .qr-image {
       width: 90px;
       height: 90px;
-      border-radius: 10px;
-      background:
-        linear-gradient(90deg, #111111 8px, transparent 8px) 0 0 / 18px 18px,
-        linear-gradient(#111111 8px, transparent 8px) 0 0 / 18px 18px,
-        linear-gradient(90deg, #111111 6px, transparent 6px) 9px 9px / 18px 18px,
-        linear-gradient(#111111 6px, transparent 6px) 9px 9px / 18px 18px,
-        #ffffff;
+      border-radius: 12px;
+      object-fit: contain;
+      background: #ffffff;
+      padding: 6px;
       border: 1px solid rgba(0, 0, 0, 0.08);
       justify-self: end;
     }
@@ -516,7 +524,7 @@
         grid-template-columns: 1fr;
       }
 
-      .qr {
+      .qr-image {
         justify-self: start;
       }
     }
@@ -552,6 +560,46 @@
   </style>
 </head>
 <body>
+  <svg aria-hidden="true" focusable="false" style="position:absolute;width:0;height:0;overflow:hidden">
+    <symbol id="icon-roller" viewBox="0 0 24 24">
+      <path d="M4 7h8a2 2 0 0 0 2-2V4H4z"/>
+      <path d="M14 6h2a2 2 0 0 1 2 2v2"/>
+      <path d="M18 10v3"/>
+      <path d="M16 13h4v6a2 2 0 0 1-2 2h-2z"/>
+    </symbol>
+    <symbol id="icon-facade" viewBox="0 0 24 24">
+      <path d="M4 20V9l8-4 8 4v11"/>
+      <path d="M8 20v-6h8v6"/>
+      <path d="M8 10h.01"/>
+      <path d="M12 10h.01"/>
+      <path d="M16 10h.01"/>
+    </symbol>
+    <symbol id="icon-drop" viewBox="0 0 24 24">
+      <path d="M12 3s-6 6.4-6 10.4A6 6 0 0 0 18 13.4C18 9.4 12 3 12 3z"/>
+      <path d="M10 16a2.5 2.5 0 0 0 4 0"/>
+    </symbol>
+    <symbol id="icon-shield" viewBox="0 0 24 24">
+      <path d="M12 3l7 3v5c0 5-3.2 8-7 10-3.8-2-7-5-7-10V6z"/>
+      <path d="M9.5 12.5l1.6 1.6 3.4-3.6"/>
+    </symbol>
+    <symbol id="icon-award" viewBox="0 0 24 24">
+      <circle cx="12" cy="8" r="4"/>
+      <path d="M8.5 12.5L7 21l5-3 5 3-1.5-8.5"/>
+    </symbol>
+    <symbol id="icon-handshake" viewBox="0 0 24 24">
+      <path d="M7 12l3-3a2.8 2.8 0 0 1 4 0l3 3"/>
+      <path d="M4 10l3 3"/>
+      <path d="M20 10l-3 3"/>
+      <path d="M9 13l2 2"/>
+      <path d="M12 12l2.5 2.5"/>
+      <path d="M7 7H3v5"/>
+      <path d="M21 7h-4"/>
+    </symbol>
+    <symbol id="icon-check-circle" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="8"/>
+      <path d="M9 12.5l2 2 4-4"/>
+    </symbol>
+  </svg>
   <main class="page">
     <section class="intro">
       <span class="eyebrow">Branding-Update | Navy, Hellgrau, Limette</span>
@@ -582,7 +630,7 @@
               <strong>Schneller Kontakt</strong>
               <p>Kostenlose Vor-Ort-Beratung und Ihr Angebot meist in 2 bis 3 Werktagen.</p>
             </div>
-            <div class="qr" aria-hidden="true"></div>
+            <img class="qr-image" src="./qr-malerbetrieb-michael-meyer.png" alt="QR-Code zur Website von Malerbetrieb Michael Meyer">
           </div>
           <div class="contact-card">
             <strong>Telefon</strong>
@@ -616,15 +664,21 @@
           </div>
           <div class="trust-list">
             <div class="trust-item">
-              <div class="trust-icon">1</div>
+              <div class="trust-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><use href="#icon-award"></use></svg>
+              </div>
               <p class="contact-strong">Über 30 Jahre Erfahrung</p>
             </div>
             <div class="trust-item">
-              <div class="trust-icon">2</div>
+              <div class="trust-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><use href="#icon-handshake"></use></svg>
+              </div>
               <p class="contact-strong">Kostenfreie Beratung vor Ort</p>
             </div>
             <div class="trust-item">
-              <div class="trust-icon">3</div>
+              <div class="trust-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><use href="#icon-check-circle"></use></svg>
+              </div>
               <p class="contact-strong">Angebot in 2 bis 3 Werktagen</p>
             </div>
           </div>
@@ -639,22 +693,30 @@
           <h2>Unsere Leistungen</h2>
           <div class="service-grid">
             <div class="service-card">
-              <div class="icon">I</div>
+              <div class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><use href="#icon-roller"></use></svg>
+              </div>
               <strong>Innenanstrich</strong>
               <p>Wohnräume, Decken und komplette Wohnungen.</p>
             </div>
             <div class="service-card">
-              <div class="icon">F</div>
+              <div class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><use href="#icon-facade"></use></svg>
+              </div>
               <strong>Fassadenanstrich</strong>
               <p>Prüfung, Ausbesserung und neuer Schutz.</p>
             </div>
             <div class="service-card">
-              <div class="icon">W</div>
+              <div class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><use href="#icon-drop"></use></svg>
+              </div>
               <strong>Wasserschaden</strong>
               <p>Sanierung und Wiederherstellung aus einer Hand.</p>
             </div>
             <div class="service-card">
-              <div class="icon">S</div>
+              <div class="icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><use href="#icon-shield"></use></svg>
+              </div>
               <strong>Schimmelsanierung</strong>
               <p>Ursache mitdenken statt nur überstreichen.</p>
             </div>
