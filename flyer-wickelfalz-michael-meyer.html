@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wickelfalz-Flyer | Malerbetrieb Michael Meyer</title>
+  <style>
+    :root {
+      --navy: #03101d;
+      --navy-soft: #0b1b2c;
+      --fog: #dbd8d7;
+      --fog-card: #f0efee;
+      --white: #f7f7f5;
+      --ink: #060606;
+      --muted: #8f8f8d;
+      --lime: #cce66a;
+      --line-dark: rgba(255, 255, 255, 0.12);
+      --line-light: rgba(6, 6, 6, 0.08);
+      --shadow: 0 30px 90px rgba(12, 16, 21, 0.18);
+      --radius-xl: 30px;
+      --radius-lg: 24px;
+      --radius-md: 18px;
+      color-scheme: light;
+      font-family: "Segoe UI Variable", "Aptos", "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background:
+        radial-gradient(circle at top left, rgba(204, 230, 106, 0.14), transparent 24%),
+        linear-gradient(180deg, #efebe7 0%, #e5e0db 100%);
+      color: var(--ink);
+    }
+
+    body {
+      padding: 24px;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    .page {
+      max-width: 1160px;
+      margin: 0 auto;
+      display: grid;
+      gap: 18px;
+    }
+
+    .intro {
+      display: grid;
+      gap: 10px;
+      max-width: 78ch;
+    }
+
+    .eyebrow {
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: #1e2b38;
+    }
+
+    h1 {
+      font-size: clamp(2.2rem, 4vw, 3.8rem);
+      line-height: 0.95;
+      font-weight: 850;
+      letter-spacing: -0.05em;
+      max-width: 12ch;
+    }
+
+    .intro p {
+      font-size: 1rem;
+      line-height: 1.55;
+      color: #47525e;
+    }
+
+    .hint {
+      display: inline-flex;
+      width: fit-content;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: rgba(3, 16, 29, 0.08);
+      color: #12202d;
+      font-size: 0.92rem;
+      font-weight: 700;
+    }
+
+    .sheet {
+      position: relative;
+      width: min(100%, 980px);
+      aspect-ratio: 210 / 297;
+      border-radius: 34px;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      background: #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .sheet-label {
+      position: absolute;
+      top: 16px;
+      left: 16px;
+      z-index: 4;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.85);
+      font-size: 0.78rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #1a2734;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .spread {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      padding-top: 46px;
+    }
+
+    .spread.outer {
+      grid-template-columns: 1fr 1fr 0.92fr;
+    }
+
+    .spread.inner {
+      grid-template-columns: 0.92fr 1fr 1fr;
+    }
+
+    .panel {
+      min-width: 0;
+      display: grid;
+      align-content: start;
+      gap: 14px;
+      padding: 18px 18px 20px;
+      border-right: 1px dashed rgba(0, 0, 0, 0.09);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel:last-child {
+      border-right: 0;
+    }
+
+    .panel-dark {
+      background:
+        radial-gradient(circle at top right, rgba(204, 230, 106, 0.08), transparent 28%),
+        linear-gradient(180deg, var(--navy) 0%, #020b15 100%);
+      color: var(--white);
+      border-right-color: var(--line-dark);
+    }
+
+    .panel-light {
+      background: linear-gradient(180deg, #dfdcdb 0%, #d7d3d2 100%);
+    }
+
+    .panel-soft {
+      background: linear-gradient(180deg, #ece9e7 0%, #dedbda 100%);
+    }
+
+    .panel-dark::after,
+    .panel-light::after,
+    .panel-soft::after {
+      content: "";
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 0;
+      height: 6px;
+      border-radius: 999px 999px 0 0;
+    }
+
+    .panel-dark::after {
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.3), var(--lime));
+    }
+
+    .panel-light::after,
+    .panel-soft::after {
+      background: linear-gradient(90deg, #111111, #6f6f6f);
+    }
+
+    .meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.76rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: inherit;
+      opacity: 0.72;
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      width: fit-content;
+      font-size: 0.98rem;
+      font-weight: 750;
+      letter-spacing: -0.02em;
+    }
+
+    .brand-mark {
+      width: 16px;
+      height: 16px;
+      border: 2px solid currentColor;
+      border-radius: 4px;
+      position: relative;
+      display: inline-block;
+    }
+
+    .brand-mark::before {
+      content: "";
+      position: absolute;
+      left: 3px;
+      right: 3px;
+      top: 3px;
+      bottom: 3px;
+      border-radius: 2px;
+      border: 2px solid currentColor;
+    }
+
+    .panel h2 {
+      font-size: clamp(1.35rem, 2vw, 2.08rem);
+      line-height: 0.98;
+      font-weight: 860;
+      letter-spacing: -0.05em;
+    }
+
+    .hero-title {
+      font-size: clamp(2.1rem, 2.5vw, 2.8rem);
+      line-height: 0.94;
+      font-weight: 900;
+      letter-spacing: -0.06em;
+    }
+
+    .hero-title .muted {
+      color: rgba(247, 247, 245, 0.54);
+      display: block;
+    }
+
+    .hero-title .bright {
+      color: var(--white);
+      display: block;
+    }
+
+    .panel p,
+    .panel li {
+      font-size: 0.91rem;
+      line-height: 1.45;
+      letter-spacing: -0.01em;
+    }
+
+    .panel-dark p,
+    .panel-dark li {
+      color: rgba(247, 247, 245, 0.78);
+    }
+
+    .panel-light p,
+    .panel-soft p,
+    .panel-light li,
+    .panel-soft li {
+      color: rgba(6, 6, 6, 0.76);
+    }
+
+    .lead {
+      font-size: 1.08rem;
+      line-height: 1.28;
+      font-weight: 700;
+    }
+
+    .panel-dark .lead {
+      color: rgba(247, 247, 245, 0.86);
+    }
+
+    .subline {
+      font-size: 0.96rem;
+      line-height: 1.38;
+      color: rgba(247, 247, 245, 0.72);
+    }
+
+    .photo {
+      min-height: 210px;
+      border-radius: var(--radius-xl);
+      padding: 18px;
+      display: grid;
+      align-content: end;
+      gap: 8px;
+      background:
+        linear-gradient(180deg, rgba(3, 16, 29, 0.08), rgba(3, 16, 29, 0.48)),
+        radial-gradient(circle at top left, rgba(255, 255, 255, 0.24), transparent 24%),
+        linear-gradient(130deg, #53644e 0%, #8f876d 42%, #5a6d53 100%);
+      color: var(--white);
+    }
+
+    .trust-list,
+    .service-grid,
+    .stack {
+      display: grid;
+      gap: 12px;
+    }
+
+    .trust-item {
+      display: grid;
+      grid-template-columns: 30px 1fr;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .trust-item:first-child {
+      border-top: 0;
+    }
+
+    .trust-icon {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      border: 2px solid rgba(247, 247, 245, 0.88);
+      display: grid;
+      place-items: center;
+      font-size: 0.95rem;
+      color: var(--white);
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: fit-content;
+      min-height: 56px;
+      padding: 0 24px;
+      border-radius: 999px;
+      background: var(--lime);
+      color: #273014;
+      font-size: 0.98rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+
+    .contact-strong {
+      font-size: 1.15rem;
+      line-height: 1.12;
+      font-weight: 850;
+      letter-spacing: -0.03em;
+      color: inherit;
+    }
+
+    .contact-big {
+      font-size: 1.7rem;
+      line-height: 1.02;
+      font-weight: 900;
+      letter-spacing: -0.05em;
+    }
+
+    .service-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .service-card,
+    .info-card,
+    .contact-card,
+    .qr-card {
+      border-radius: 24px;
+      background: var(--fog-card);
+      border: 1px solid var(--line-light);
+      padding: 16px 14px;
+    }
+
+    .service-card {
+      min-height: 112px;
+      display: grid;
+      align-content: start;
+      gap: 8px;
+    }
+
+    .service-card strong,
+    .info-card strong,
+    .contact-card strong,
+    .qr-card strong {
+      display: block;
+      font-size: 0.95rem;
+      line-height: 1.12;
+      letter-spacing: -0.02em;
+    }
+
+    .icon {
+      width: 34px;
+      height: 34px;
+      border-radius: 12px;
+      border: 2px solid #111111;
+      display: grid;
+      place-items: center;
+      font-size: 0.88rem;
+      font-weight: 800;
+    }
+
+    .stack {
+      gap: 10px;
+    }
+
+    .dark-card {
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      padding: 15px 14px;
+    }
+
+    .dark-card strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.95rem;
+      color: var(--white);
+    }
+
+    .bullet-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      gap: 8px;
+    }
+
+    .bullet-list li {
+      position: relative;
+      padding-left: 15px;
+    }
+
+    .bullet-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0.54em;
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: currentColor;
+      opacity: 0.85;
+    }
+
+    .qr-card {
+      display: grid;
+      gap: 14px;
+      grid-template-columns: 1fr 90px;
+      align-items: end;
+    }
+
+    .qr {
+      width: 90px;
+      height: 90px;
+      border-radius: 10px;
+      background:
+        linear-gradient(90deg, #111111 8px, transparent 8px) 0 0 / 18px 18px,
+        linear-gradient(#111111 8px, transparent 8px) 0 0 / 18px 18px,
+        linear-gradient(90deg, #111111 6px, transparent 6px) 9px 9px / 18px 18px,
+        linear-gradient(#111111 6px, transparent 6px) 9px 9px / 18px 18px,
+        #ffffff;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      justify-self: end;
+    }
+
+    .footer {
+      max-width: 74ch;
+      color: #4d5963;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+
+    @media (max-width: 1020px) {
+      body {
+        padding: 16px;
+      }
+
+      .sheet {
+        aspect-ratio: auto;
+        height: auto;
+      }
+
+      .spread,
+      .spread.outer,
+      .spread.inner {
+        position: relative;
+        inset: auto;
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        border-right: 0;
+        border-bottom: 1px dashed rgba(0, 0, 0, 0.1);
+      }
+
+      .panel:last-child {
+        border-bottom: 0;
+      }
+
+      .service-grid,
+      .qr-card {
+        grid-template-columns: 1fr;
+      }
+
+      .qr {
+        justify-self: start;
+      }
+    }
+
+    @media print {
+      body {
+        padding: 0;
+        background: #ffffff;
+      }
+
+      .intro,
+      .footer {
+        display: none;
+      }
+
+      .page {
+        gap: 0;
+      }
+
+      .sheet {
+        width: 210mm;
+        height: 297mm;
+        border-radius: 0;
+        box-shadow: none;
+        border: 0;
+        page-break-after: always;
+      }
+
+      .sheet:last-of-type {
+        page-break-after: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="intro">
+      <span class="eyebrow">Branding-Update | Navy, Hellgrau, Limette</span>
+      <h1>Flyer-Vorschau jetzt an die gezeigte Markenwelt angelehnt.</h1>
+      <p>
+        Die Gestaltung orientiert sich jetzt klar an deinem Beispiel: starke dunkle Flächen, große ruhige Headlines,
+        helle Servicekarten, abgerundete Module und ein limettengrüner CTA als markanter Akzent.
+      </p>
+      <div class="hint">Vorderseite und Innenseite bleiben jeweils 3-spaltig im Hochformat mit Wickelfalz-Logik.</div>
+    </section>
+
+    <section class="sheet">
+      <div class="sheet-label">Vorderseite | Druckdatei von links nach rechts</div>
+      <div class="spread outer">
+        <article class="panel panel-light">
+          <div class="meta">
+            <strong>1</strong>
+            <span>Rückseite</span>
+          </div>
+          <div class="brand">
+            <span class="brand-mark"></span>
+            <span>Malerbetrieb Michael Meyer</span>
+          </div>
+          <h2>Jetzt unverbindlich anfragen</h2>
+          <p class="lead">Einfach QR-Code scannen oder direkt anrufen.</p>
+          <div class="qr-card">
+            <div>
+              <strong>Schneller Kontakt</strong>
+              <p>Kostenlose Vor-Ort-Beratung und Ihr Angebot meist in 2 bis 3 Werktagen.</p>
+            </div>
+            <div class="qr" aria-hidden="true"></div>
+          </div>
+          <div class="contact-card">
+            <strong>Telefon</strong>
+            <p class="contact-big">0172 288 81 17</p>
+          </div>
+          <div class="contact-card">
+            <strong>Kontakt & Adresse</strong>
+            <p>info@malerbetrieb-michael-meyer.de</p>
+            <p>malerbetrieb-michael-meyer.de</p>
+            <p>Telemannstr. 4, 48147 Münster</p>
+          </div>
+        </article>
+
+        <article class="panel panel-dark">
+          <div class="meta">
+            <strong>2</strong>
+            <span>Titelseite</span>
+          </div>
+          <div class="brand">
+            <span class="brand-mark"></span>
+            <span>Malerbetrieb Michael Meyer</span>
+          </div>
+          <h2 class="hero-title">
+            <span class="muted">Frische Farbe</span>
+            <span class="bright">für Ihr Zuhause</span>
+          </h2>
+          <p class="lead">Malerarbeiten in Münster. Sauber geplant. Präzise umgesetzt.</p>
+          <div class="photo">
+            <strong>Authentisches Team- oder Baustellenfoto</strong>
+            <p>Groß, ruhig, hochwertig und nahbar statt kleinteilig und technisch.</p>
+          </div>
+          <div class="trust-list">
+            <div class="trust-item">
+              <div class="trust-icon">1</div>
+              <p class="contact-strong">Über 30 Jahre Erfahrung</p>
+            </div>
+            <div class="trust-item">
+              <div class="trust-icon">2</div>
+              <p class="contact-strong">Kostenfreie Beratung vor Ort</p>
+            </div>
+            <div class="trust-item">
+              <div class="trust-icon">3</div>
+              <p class="contact-strong">Angebot in 2 bis 3 Werktagen</p>
+            </div>
+          </div>
+          <div class="pill">Jetzt unverbindlich anfragen</div>
+        </article>
+
+        <article class="panel panel-soft">
+          <div class="meta">
+            <strong>3</strong>
+            <span>Einklapp-Lasche</span>
+          </div>
+          <h2>Unsere Leistungen</h2>
+          <div class="service-grid">
+            <div class="service-card">
+              <div class="icon">I</div>
+              <strong>Innenanstrich</strong>
+              <p>Wohnräume, Decken und komplette Wohnungen.</p>
+            </div>
+            <div class="service-card">
+              <div class="icon">F</div>
+              <strong>Fassadenanstrich</strong>
+              <p>Prüfung, Ausbesserung und neuer Schutz.</p>
+            </div>
+            <div class="service-card">
+              <div class="icon">W</div>
+              <strong>Wasserschaden</strong>
+              <p>Sanierung und Wiederherstellung aus einer Hand.</p>
+            </div>
+            <div class="service-card">
+              <div class="icon">S</div>
+              <strong>Schimmelsanierung</strong>
+              <p>Ursache mitdenken statt nur überstreichen.</p>
+            </div>
+          </div>
+          <div class="info-card">
+            <strong>Darum Wickelfalz</strong>
+            <p>Außen zuerst Vertrauen und Kontakt, innen dann der komplette Leistungsüberblick.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="sheet">
+      <div class="sheet-label">Innenseite | Leserichtung von links nach rechts</div>
+      <div class="spread inner">
+        <article class="panel panel-dark">
+          <div class="meta">
+            <strong>4</strong>
+            <span>Warum Michael Meyer</span>
+          </div>
+          <h2>Sauber geplant. Präzise umgesetzt.</h2>
+          <p class="subline">
+            Meisterbetrieb in Münster mit ehrlicher Beratung, sauberer Arbeitsweise und fester Projektbegleitung.
+          </p>
+          <div class="stack">
+            <div class="dark-card">
+              <strong>Mehr als 500 Projekte</strong>
+              <p>Erfahrung aus Wohnungen, Häusern, Praxen, Büros und Treppenhäusern.</p>
+            </div>
+            <div class="dark-card">
+              <strong>Saubere Ausführung</strong>
+              <p>Ordentlich abgedeckt, gut vorbereitet und sauber übergeben.</p>
+            </div>
+            <div class="dark-card">
+              <strong>Transparenter Ablauf</strong>
+              <p>Vom Vor-Ort-Termin bis zur fertigen Übergabe mit klaren nächsten Schritten.</p>
+            </div>
+          </div>
+          <ul class="bullet-list">
+            <li>Kostenlose Vor-Ort-Beratung</li>
+            <li>Transparente Angebote</li>
+            <li>Termintreue Ausführung</li>
+            <li>Feste Ansprechpartner</li>
+          </ul>
+        </article>
+
+        <article class="panel panel-light">
+          <div class="meta">
+            <strong>5</strong>
+            <span>Privatkunden</span>
+          </div>
+          <h2>Für Privatkunden</h2>
+          <div class="stack">
+            <div class="info-card">
+              <strong>Malerarbeiten innen</strong>
+              <p>Wohnräume, Decken, einzelne Wände oder komplette Wohnungen mit sauberer Vorbereitung und klaren Kanten.</p>
+            </div>
+            <div class="info-card">
+              <strong>Fassadenanstrich</strong>
+              <p>Für Ein- und Mehrfamilienhäuser mit Untergrundprüfung, Putzausbesserung und auf Wunsch Gerüstkoordination.</p>
+            </div>
+            <div class="info-card">
+              <strong>Schimmel und Wasserschaden</strong>
+              <p>Schnelle Hilfe bei Feuchtigkeitsschäden, Wiederherstellung und Dokumentation für die Versicherung.</p>
+            </div>
+          </div>
+        </article>
+
+        <article class="panel panel-light">
+          <div class="meta">
+            <strong>6</strong>
+            <span>Gewerbe & Hausverwaltungen</span>
+          </div>
+          <h2>Für Gewerbe, Praxen und Hausverwaltungen</h2>
+          <div class="stack">
+            <div class="info-card">
+              <strong>Malerarbeiten im laufenden Betrieb</strong>
+              <p>Büros, Praxen, Läden und Gastronomie mit Staubschutz und auf Wunsch abends oder am Wochenende.</p>
+            </div>
+            <div class="info-card">
+              <strong>Treppenhaus-Anstriche</strong>
+              <p>Etagenweise Ausführung mit Putzausbesserung und Dokumentation für Eigentümer oder Verwaltung.</p>
+            </div>
+            <div class="info-card">
+              <strong>Renovierung mit System</strong>
+              <p>Mit Etappenplan, Staubschutzwänden und fester Projektkoordination.</p>
+            </div>
+          </div>
+          <div class="pill">Telefonisch anfragen</div>
+        </article>
+      </div>
+    </section>
+
+    <p class="footer">
+      Wenn noch stärker ans tatsächliche Branding ran soll, wäre der nächste Feinschliff: echtes Logo, Originalfoto aus dem
+      Betrieb und ein echter QR-Code zur Website oder WhatsApp-Anfrage.
+    </p>
+  </main>
+</body>
+</html>
